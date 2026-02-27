@@ -68,7 +68,7 @@ const CheckoutPOS = () => {
                 if (catData) setCategories(['All', ...catData.map(c => c.name)]);
 
                 // 2. Fetch Branches
-                const { data: branchData } = await supabase.from('branches').select('*').eq('is_active', true);
+                const { data: branchData } = await supabase.from('branches').select('*');
                 if (branchData) setBranches(branchData);
 
                 // 3. Fetch Products

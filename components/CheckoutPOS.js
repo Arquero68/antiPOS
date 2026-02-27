@@ -162,7 +162,21 @@ const CheckoutPOS = () => {
                 <h1 style={{ marginBottom: '8px' }}>Assign Terminal</h1>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Which branch is this device currently serving?</p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', width: '100%', maxWidth: '800px' }}>
-                    {loading ? <Loader2 className="animate-spin" /> : branches.map(branch => (
+                    {loading ? <Loader2 className="animate-spin" /> : branches.length === 0 ? (
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+                            <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>No branches found. Please add a branch first.</p>
+                            <button 
+                                className="glass" 
+                                style={{ padding: '12px 24px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+                                onClick={async () => {
+                                    const { data, error } = await supabase.from('branches').insert([{ name: 'Main Store', location: 'Default Location' }]).select();
+                                    if (data) setBranches(data);
+                                }}
+                            >
+                                Add Default Branch
+                            </button>
+                        </div>
+                    ) : branches.map(branch => (
                         <div key={branch.id} className="glass glass-hover" style={{ padding: '24px', cursor: 'pointer', textAlign: 'center' }} onClick={() => setSelectedBranch(branch)}>
                             <h3>{branch.name}</h3>
                             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{branch.location}</p>

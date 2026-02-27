@@ -22,10 +22,21 @@ import {
 import styles from './Sidebar.module.css';
 import { supabase } from '@/lib/supabase';
 
-const Sidebar = ({ user, profile }) => {
+const Sidebar = ({ user, profile, isOpen, onClose }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const activeTab = searchParams.get('tab') || 'dashboard';
+
+  const handleNavClick = (itemId) => {
+    if (itemId === 'pos') {
+      router.push('/pos');
+    } else {
+      router.push(`/?tab=${itemId}`);
+    }
+    if (isOpen && onClose) {
+      onClose();
+    }
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -51,7 +62,7 @@ const Sidebar = ({ user, profile }) => {
   const filteredItems = navItems.filter(item => item.roles.includes(profile?.role || 'cashier'));
 
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
       <div className={styles.logo}>
         <div className={styles.avatar} style={{ background: 'var(--primary)', color: 'white' }}>A</div>
         <span>antiPOS</span>
@@ -62,13 +73,7 @@ const Sidebar = ({ user, profile }) => {
           <div
             key={item.id}
             className={`${styles.navItem} ${activeTab === item.id ? styles.active : ''}`}
-            onClick={() => {
-              if (item.id === 'pos') {
-                router.push('/pos');
-              } else {
-                router.push(`/?tab=${item.id}`);
-              }
-            }}
+            onClick={() => handleNavClick(item.id)}
           >
             {item.icon}
             <span>{item.label}</span>

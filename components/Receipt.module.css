@@ -1,0 +1,100 @@
+.receiptOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 11000;
+    padding: 20px;
+}
+
+.receiptPaper {
+    width: 300px;
+    background: white;
+    color: black;
+    padding: 40px 20px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.divider {
+    border-top: 1px dashed black;
+    margin: 10px 0;
+}
+
+.itemRow {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.printBtn {
+    flex: 1;
+    padding: 12px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+}
+
+.closeBtn {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+}
+
+@media print {
+    .receiptOverlay {
+        background: white;
+        padding: 0;
+        position: static;
+    }
+
+    .receiptPaper {
+        box-shadow: none;
+        width: 100%;
+        max-width: 80mm;
+        padding: 0;
+    }
+
+    .actions {
+        display: none;
+    }
+}

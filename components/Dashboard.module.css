@@ -1,0 +1,212 @@
+.dashboardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* Align title and potential actions to baseline */
+    margin-bottom: 4px;
+}
+
+.title h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.kpiCard {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Consistent inner spacing */
+    min-height: 180px;
+}
+
+.kpiTitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.kpiValue {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+
+.kpiTrend {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    margin-top: auto;
+    /* Push to bottom */
+}
+
+.trendUp {
+    color: var(--success);
+}
+
+.trendDown {
+    color: var(--error);
+}
+
+.chartsGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.chartContainer {
+    padding: 28px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.feedContainer {
+    padding: 28px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.recentList {
+    margin-top: 20px;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 12px;
+}
+
+/* Custom Lean Scrollbar */
+.recentList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.recentList::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.kpiIcon {
+    opacity: 0.8;
+    padding: 10px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.iconError {
+    color: var(--error);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.iconPrimary {
+    color: var(--primary);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.transactionItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.transactionItem:last-child {
+    border-bottom: none;
+}
+
+.transactionInfo {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.transactionIcon {
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.transactionMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.transactionTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.transactionSub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.transactionAmount {
+    font-weight: 700;
+    color: var(--success);
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0;
+    color: white;
+    letter-spacing: -0.01em;
+}
+
+@media (max-width: 1400px) {
+    .chartsGrid {
+        grid-template-columns: 1.5fr 1fr;
+    }
+}
+
+@media (max-width: 1200px) {
+    .chartsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .chartContainer,
+    .feedContainer {
+        height: 400px;
+    }
+}

@@ -1,0 +1,23 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+}
+
+.main {
+    flex: 1;
+    margin-left: 260px;
+    /* Same as sidebar width */
+    padding: 40px;
+    min-height: 100vh;
+    transition: var(--transition);
+}
+
+@media (max-width: 1024px) {
+    .main {
+        margin-left: 0;
+        padding: 24px;
+        padding-top: 80px;
+        /* For mobile header if added later */
+    }
+}

@@ -151,9 +151,6 @@ const CheckoutPOS = () => {
             }
             return [...prev, { ...product, quantity: 1 }];
         });
-        if (window.innerWidth <= 768) {
-            setIsMobileCartOpen(true);
-        }
     };
 
     const updateQuantity = (id, delta) => {

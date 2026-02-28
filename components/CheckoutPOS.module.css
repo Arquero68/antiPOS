@@ -82,6 +82,7 @@
 
     .productImage {
         font-size: 1.2rem;
+        line-height: 1;
     }
 
     .productName {
@@ -165,6 +166,7 @@
     flex-direction: column;
     gap: 12px;
     text-align: center;
+    min-height: 140px;
 }
 
 .productImage {
@@ -176,6 +178,7 @@
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    line-height: 1;
 }
 
 .productName {

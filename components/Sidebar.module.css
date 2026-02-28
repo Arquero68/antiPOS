@@ -103,9 +103,26 @@
     .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
+        width: 280px;
+        padding: 16px;
     }
     
     .sidebar.open {
         transform: translateX(0);
+    }
+
+    .navItem {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .logo {
+        font-size: 1.25rem;
+        padding-bottom: 16px;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
     }
 }

@@ -105,3 +105,36 @@ button {
   font-family: inherit;
   transition: var(--transition);
 }
+
+/* Mobile Responsive Global Styles */
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  /* Make all containers mobile-friendly */
+  .glass {
+    padding: 12px !important;
+  }
+
+  /* Stack flex containers on mobile */
+  .flex-row {
+    flex-direction: column !important;
+  }
+
+  /* Hide overflow-x */
+  .overflow-x-auto {
+    overflow-x: scroll !important;
+  }
+
+  /* Make tables scrollable */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* Form inputs full width on mobile */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+}

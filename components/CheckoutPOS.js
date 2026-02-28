@@ -249,12 +249,11 @@ const CheckoutPOS = () => {
                             <div className={styles.productName}>{product.name}</div>
                             <div className={styles.productPrice}>{storeSettings.currencySymbol}{product.price.toFixed(2)}</div>
 
-                            {/* Dynamic Stock Badge */}
                             {product.stock <= product.threshold && product.stock > 0 && (
-                                <div style={{ fontSize: '0.65rem', color: 'var(--warning)', marginTop: '4px', fontWeight: 700 }}>LOW STOCK ({product.stock})</div>
+                                <div className={`${styles.stockBadge} ${styles.lowStock}`}>LOW STOCK</div>
                             )}
                             {product.stock <= 0 && (
-                                <div style={{ fontSize: '0.65rem', color: 'var(--error)', marginTop: '4px', fontWeight: 700 }}>OUT OF STOCK</div>
+                                <div className={`${styles.stockBadge} ${styles.outOfStock}`}>OUT OF STOCK</div>
                             )}
                         </div>
                     ))}
@@ -402,37 +401,41 @@ const CheckoutPOS = () => {
 
                 <div className={styles.cartItems}>
                     {cart.map(item => (
-                        <div key={item.id} className="glass" style={{ padding: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                            <div style={{ fontSize: '1.5rem' }}>{item.emoji}</div>
-                            <div style={{ flex: 1 }}><div style={{ fontWeight: 600 }}>{item.name}</div><div>{storeSettings.currencySymbol}{item.price.toFixed(2)}</div></div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <button onClick={() => updateQuantity(item.id, -1)} className="glass" style={{ padding: '4px' }}>-</button>
-                                <span>{item.quantity}</span>
-                                <button onClick={() => updateQuantity(item.id, 1)} className="glass" style={{ padding: '4px' }}>+</button>
+                        <div key={item.id} className={styles.cartItem}>
+                            <div className={styles.cartItemImage}>{item.emoji}</div>
+                            <div className={styles.cartItemInfo}>
+                                <div className={styles.cartItemName}>{item.name}</div>
+                                <div className={styles.cartItemPrice}>{storeSettings.currencySymbol}{item.price.toFixed(2)}</div>
                             </div>
+                            <div className={styles.cartItemQty}>
+                                <button className={styles.qtyBtn} onClick={() => updateQuantity(item.id, -1)}>−</button>
+                                <span className={styles.qtyDisplay}>{item.quantity}</span>
+                                <button className={styles.qtyBtn} onClick={() => updateQuantity(item.id, 1)}>+</button>
+                            </div>
+                            <div className={styles.cartItemTotal}>{storeSettings.currencySymbol}{(item.price * item.quantity).toFixed(2)}</div>
                         </div>
                     ))}
                 </div>
 
                 <div className={styles.cartFooter}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '12px', fontSize: '0.85rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                        <div className={styles.summaryRow}>
                             <span>Subtotal</span>
                             <span>{storeSettings.currencySymbol}{subtotal.toFixed(2)}</span>
                         </div>
                         {discount > 0 && (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--primary)' }}>
+                            <div className={styles.summaryRow} style={{ color: 'var(--primary)' }}>
                                 <span>Discount</span>
                                 <span>-{storeSettings.currencySymbol}{discount.toFixed(2)}</span>
                             </div>
                         )}
                         {pointsValue > 0 && (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--success)' }}>
+                            <div className={styles.summaryRow} style={{ color: 'var(--success)' }}>
                                 <span>Points Credit</span>
                                 <span>-{storeSettings.currencySymbol}{pointsValue.toFixed(2)}</span>
                             </div>
                         )}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+                        <div className={styles.summaryRow}>
                             <span>Tax ({storeSettings.taxRate}%)</span>
                             <span>{storeSettings.currencySymbol}{tax.toFixed(2)}</span>
                         </div>

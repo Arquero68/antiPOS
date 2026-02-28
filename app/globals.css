@@ -110,6 +110,7 @@ button {
 @media (max-width: 768px) {
   html, body {
     font-size: 14px;
+    overflow-x: hidden;
   }
 
   /* Make all containers mobile-friendly */
@@ -117,9 +118,12 @@ button {
     padding: 12px !important;
   }
 
-  /* Stack flex containers on mobile */
-  .flex-row {
-    flex-direction: column !important;
+  /* Ensure scrolling works on mobile */
+  body {
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100vh;
   }
 
   /* Hide overflow-x */
@@ -135,6 +139,6 @@ button {
 
   /* Form inputs full width on mobile */
   input, select, textarea {
-    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    font-size: 16px !important;
   }
 }

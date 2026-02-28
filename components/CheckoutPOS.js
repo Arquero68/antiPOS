@@ -151,6 +151,9 @@ const CheckoutPOS = () => {
             }
             return [...prev, { ...product, quantity: 1 }];
         });
+        if (window.innerWidth <= 768) {
+            setIsMobileCartOpen(true);
+        }
     };
 
     const updateQuantity = (id, delta) => {
@@ -259,12 +262,25 @@ const CheckoutPOS = () => {
             </section>
 
             {/* Cart and Payment Logic (remains same) */}
-            <aside className={`${styles.cartSection} ${isMobileCartOpen ? styles.cartExpanded : ''}`}>
+            <aside className={`${styles.cartSection} ${isMobileCartOpen ? styles.cartExpanded : ''}`} onClick={() => !isMobileCartOpen && setIsMobileCartOpen(true)}>
                 <div className={styles.cartHeader}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <ShoppingCart size={22} color="var(--primary)" />
+                        <div style={{ position: 'relative' }}>
+                            <ShoppingCart size={22} color="var(--primary)" />
+                            {cart.length > 0 && (
+                                <span style={{ position: 'absolute', top: '-8px', right: '-8px', background: 'var(--primary)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '2px 6px', borderRadius: '10px', minWidth: '18px', textAlign: 'center' }}>
+                                    {cart.length}
+                                </span>
+                            )}
+                        </div>
                         <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Active Order</h2>
                     </div>
+                    {cart.length > 0 && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--primary)', padding: '6px 12px', borderRadius: '8px' }}>
+                            <span style={{ fontWeight: 700 }}>{storeSettings.currencySymbol}{total.toFixed(2)}</span>
+                            <span style={{ opacity: 0.7, fontSize: '0.85rem' }}>({cart.reduce((a, b) => a + b.quantity, 0)} items)</span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Customer Selection */}

@@ -40,6 +40,7 @@ const CheckoutPOS = () => {
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [usePoints, setUsePoints] = useState(false);
     const [storeSettings, setStoreSettings] = useState({ taxRate: 5, currencySymbol: '₱' });
+    const [branchError, setBranchError] = useState(null);
 
     // Dynamic Calculations
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -165,12 +166,18 @@ const CheckoutPOS = () => {
                     {loading ? <Loader2 className="animate-spin" /> : branches.length === 0 ? (
                         <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
                             <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>No branches found. Please add a branch first.</p>
+                            {branchError && <p style={{ color: 'var(--error)', marginBottom: '20px)' }}>{branchError}</p>}
                             <button 
                                 className="glass" 
                                 style={{ padding: '12px 24px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
                                 onClick={async () => {
+                                    setBranchError(null);
                                     const { data, error } = await supabase.from('branches').insert([{ name: 'Main Store', location: 'Default Location' }]).select();
-                                    if (data) setBranches(data);
+                                    if (error) {
+                                        setBranchError('Error: ' + error.message + '. Make sure Supabase env vars are set in Vercel.');
+                                    } else if (data) {
+                                        setBranches(data);
+                                    }
                                 }}
                             >
                                 Add Default Branch

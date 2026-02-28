@@ -117,26 +117,6 @@ export default function LoginPage() {
                     >
                         {loading ? <Loader2 className="animate-spin" size={20} /> : 'Secure Login'}
                     </button>
-
-                    <button
-                        type="button"
-                        onClick={() => {
-                            localStorage.setItem('dev_bypass', 'true');
-                            window.location.href = '/';
-                        }}
-                        style={{
-                            marginTop: '12px',
-                            background: 'transparent',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            color: 'var(--text-muted)',
-                            fontSize: '0.8rem',
-                            padding: '10px',
-                            borderRadius: '8px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Bypass Login (Development Only)
-                    </button>
                 </form>
 
                 <p style={{ marginTop: '32px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>

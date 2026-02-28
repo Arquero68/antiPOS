@@ -41,6 +41,7 @@ const CheckoutPOS = () => {
     const [usePoints, setUsePoints] = useState(false);
     const [storeSettings, setStoreSettings] = useState({ taxRate: 5, currencySymbol: '₱' });
     const [branchError, setBranchError] = useState(null);
+    const [fetchError, setFetchError] = useState(null);
 
     if (!supabase) {
         return (
@@ -122,6 +123,7 @@ const CheckoutPOS = () => {
                 }
             } catch (err) {
                 console.error('Error fetching terminal data:', err);
+                setFetchError(err.message);
             } finally {
                 setLoading(false);
             }
@@ -173,11 +175,12 @@ const CheckoutPOS = () => {
                 <Store size={48} color="var(--primary)" style={{ marginBottom: '24px' }} />
                 <h1 style={{ marginBottom: '8px' }}>Assign Terminal</h1>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Which branch is this device currently serving?</p>
+                {fetchError && <p style={{ color: 'var(--error)', marginBottom: '20px' }}>Error: {fetchError}</p>}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', width: '100%', maxWidth: '800px' }}>
                     {loading ? <Loader2 className="animate-spin" /> : branches.length === 0 ? (
                         <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
                             <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>No branches found. Please add a branch first.</p>
-                            {branchError && <p style={{ color: 'var(--error)', marginBottom: '20px)' }}>{branchError}</p>}
+                            {branchError && <p style={{ color: 'var(--error)', marginBottom: '20px', textAlign: 'left' }}>{branchError}</p>}
                             <button 
                                 className="glass" 
                                 style={{ padding: '12px 24px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
@@ -185,7 +188,8 @@ const CheckoutPOS = () => {
                                     setBranchError(null);
                                     const { data, error } = await supabase.from('branches').insert([{ name: 'Main Store', location: 'Default Location' }]).select();
                                     if (error) {
-                                        setBranchError('Error: ' + error.message + '. Make sure Supabase env vars are set in Vercel.');
+                                        console.error('Supabase error:', error);
+                                        setBranchError('Error: ' + error.message);
                                     } else if (data) {
                                         setBranches(data);
                                     }

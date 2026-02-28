@@ -213,13 +213,12 @@ const CheckoutPOS = () => {
         <div className={styles.posWrapper}>
             <section className={styles.catalogSection}>
                 <header className={styles.header}>
-                    {/* Header logic same as before */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                         <button onClick={() => window.location.href = '/'} className="glass" style={{ padding: '8px' }}>
                             <ArrowLeft size={20} />
                         </button>
                         <div>
-                            <h1 style={{ fontSize: '1.25rem', fontWeight: 800 }}>antiPOS Store</h1>
+                            <h1 style={{ fontSize: '1.25rem', fontWeight: 800 }}>antiPOS</h1>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--primary)', cursor: 'pointer' }} onClick={() => setSelectedBranch(null)}>
                                 <Store size={12} />
                                 <span>{selectedBranch.name}</span>

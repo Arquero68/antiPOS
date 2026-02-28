@@ -42,6 +42,17 @@ const CheckoutPOS = () => {
     const [storeSettings, setStoreSettings] = useState({ taxRate: 5, currencySymbol: '₱' });
     const [branchError, setBranchError] = useState(null);
 
+    if (!supabase) {
+        return (
+            <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'var(--bg-main)' }}>
+                <h1 style={{ marginBottom: '16px', color: 'var(--error)' }}>Configuration Error</h1>
+                <p style={{ color: 'var(--text-muted)', textAlign: 'center', maxWidth: '400px' }}>
+                    Supabase environment variables are not set. Please add them in Vercel settings.
+                </p>
+            </div>
+        );
+    }
+
     // Dynamic Calculations
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
